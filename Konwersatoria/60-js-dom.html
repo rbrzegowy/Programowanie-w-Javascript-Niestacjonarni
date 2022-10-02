@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM, scroll, położenie i rozmiary bloków</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <main>
+        <div class="buttons">
+            <button id="ok">Ok</button>
+            <button id="cancel">Anuluj</button>
+
+        </div>
+    </main>
+    <script type="text/javascript">
+        // pobieranie elememtu ze struktury DOM
+        const cancelButton = document.getElementById('cancel')
+        const mainContainer = document.querySelector('.buttons') // selektory jak w css: .ok, button itd
+        const okButton = document.querySelector('#ok') // selektory jak w css: .ok, button itd
+
+        // pobieranie listy elementów
+        const imgList = document.querySelectorAll('.thumb')
+        const priceList = document.getElementsByClassName('price') //.getElementsByName, .getElementsByTagName(NS)
+
+        // zmiana struktury DOM
+        // dzieciaki
+        mainContainer.appendChild(okButton)
+        mainContainer.removeChild(cancelButton) // .replaceChild()
+
+        // nowy element
+        const newOk = document.createElement('button')
+
+        // kopia
+        const okClone = okButton.cloneNode(true)
+
+        // wstawianie przed/za elementem - jeśli element istnieje w DOM -> zostanie przeniesiony
+        mainContainer.insertBefore(okClone, imgList[0])
+
+        // zamiana zawartości elementu
+        mainContainer.innerHTML = '<script >Rzeźbie html-a z js-a</h1>'
+        mainContainer.innerText = 'nudno tutaj...' // wydajniejsza wersja: .textContent
+
+        // style css
+        mainContainer.style.background = "#000"
+        mainContainer.style.marginTop = "10px"
+
+        // klasy css
+        mainContainer.className = "red big header" // do czyszczenia/nadpisywania
+        mainContainer.classList.add("red")
+        mainContainer.classList.remove("header")
+        mainContainer.classList.toggle("header")
+        // sorry, na konwersatoriach popłynąłem z .has() - nie ma tego w classList, trzeba sobie zakodzić;)
+
+        // rozmiary elementu
+        // outerWidth/outerHeight - z paskami, toolbarem etc
+        // innerWidth/innerHeight - sam viewport
+
+        // rozmiary elementu:
+        // scrollWidth/scrollHeight - całość elementu (również niewidoczna część)
+        // offsetWidth/offsetHeight - widoczna część elementu (z paddingiem i borderem)
+        // clientWidth/clientHeight - widoczna część elementu (bez bordera)
+        // cssowy width/height
+
+        // pobieranie obliczonych css-ow
+        // window.getComputedStyle(elem) - zwraca live obiekt cssowy (zmiana css, powoduje zmianę obiektu)
+    </script>
+</body>
+
+</html>
