@@ -10,3 +10,10 @@
 ### Wersja normal:
 - Pola tekstowe powinny być dodawane dynamicznie. Na początku są widoczne trzy, kolejne użytkownik może dodać klikając w przycisk "Dodaj pole"
 - Nieużywane pola tekstowe można usunąć
+
+### Przydatne
+> Pobieranie elementu ze struktury DOM:
+> ```document.querySelector(selektor)```
+> ``` document.querySelectorAll(selektor) ```  
+> Nasłuchiwanie na zdarzenia:
+> ```document.addEventListener(nazwaZdarzenia, callback)```
