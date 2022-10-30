@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>JS - Obiekty</title>
+</head>
+
+<body>
+	<script>
+		"use strict"
+		/* Wprowadzenie:
+
+		 co w javascript nie jest obiektem: liczby, teksty, boole, null i undefined (prymitywy)
+		 ..prawie - liczby, teksty i boole mają metody (ale nie można ich zmieniać - zobacz )
+		obiekty są KOLEKCJAMI właściwości (trochę jak tablice asocjacyjne)
+		*/
+
+		// 1. Literał + zagnieżdżanie
+		let pustyObiekt = {}
+		const student = {
+			imie: "janek",
+			nazwisko: 'nowak',
+			wiek: 20,
+			'wybrane-przedmioty': 'js',
+			koledzy: {
+				lista: ['krzychu', 'zdzichu', 'krycha']
+			},
+			czySpozywal: function () {
+				return hour > 12 ? true : false
+			},
+			oceny: {
+				'js': [5]
+			}
+		}
+		// const obiekt
+		student.wiek = 100 // jest ok:)
+		// student = {} // nie jest ok
+
+
+		// 2. Fabryka
+		function zbudujStudenta(imie, nazwisko, wiek, wybranePrzedmioty, koledzy, oceny) {
+			return {
+				imie: imie,
+				nazwisko: nazwisko,
+				wiek: wiek,
+				'wybrane-przedmioty': wybranePrzedmioty,
+				koledzy: koledzy,
+				czySpozywal: function () {
+					return hour > 12 ? true : false
+				},
+				// wartość ze zmiennej o tej samej nazwie co klucz
+				oceny
+			}
+		}
+		let student2 = zbudujStudenta('janek', 'nowak', 20, ['js', 'c#'], { lista: [] }, { 'js': [4], 'c#': [3], 'filozofia': [5] });
+		let student3 = zbudujStudenta('kasia', 'kowal', 19, ['js', 'c#'], { lista: [] }, { 'js': [5], 'c#': [5], 'filozofia': [5] });
+
+		let fabrykaLodow = function (rodzaj) {
+			return {
+				nazwa: 'lód', //fabryka wie co tworzy, nie przekazujemy w paramsach
+				rodzaj,
+				czymJestem: function () {
+					return `jestem ${this.nazwa} ${this.rodzaj}`
+				}
+			}
+		}
+
+		let malinowy = fabrykaLodow('malinka')
+		console.log('[fabryka]', typeof malinowy, malinowy.czymJestem())
+
+
+		// TO BE CONTINUED
+		// 4. obiekty z funkcji z użyciem 'new' - funkcja konstruktora
+
+	</script>
+</body>
+
+</html>
