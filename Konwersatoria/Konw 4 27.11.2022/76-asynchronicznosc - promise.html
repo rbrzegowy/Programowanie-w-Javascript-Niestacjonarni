@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOM, zdarzenia w JS</title>
+</head>
+
+<body>
+  <div id="container"></div>
+
+  <script type="text/javascript">
+    // 1. obiekt Promise()
+    // ale zanim - ajax na sterydach - fetch()
+
+    const opwApiKey = "50d53005c0fd5f556bb4ef15224c4209";
+    const openWeatherUrl = `http://api.openweathermap.org/data/2.5/weather?q=Cracow&APPID=${opwApiKey}`;
+    
+    // jaką czytelność kodu chcemy uzyskać:
+    // let koniecPracy = new Promise()
+    // koniecPracy
+    //     .then(wykapSie)
+    //     .then(znajdzRower)
+    //     .catch(szukajHulajki)
+    //     .then(znajdzKnajpe)
+    //     .then(bawSieDobrze)
+    //     .then(wrocBezpiecznie)
+    //     .catch(policemanGoniMnie)
+
+    let showProgressBar = true;
+    const weather = fetch(openWeatherUrl);
+    console.log(weather); // PROMISE!
+
+    const arr = [];
+
+    weather
+      .then((respObject) => {
+        console.log("First .then", respObject);
+        return respObject.json();
+      })
+      .then((pogoda) => {
+        console.log("Second .then", pogoda);
+      })
+      .catch((e) => {
+        console.error("Catched exception: ", e);
+          showProgressBar = false;
+      })
+      .finally((e) => {
+        showProgressBar = false;
+      });
+
+
+    // 2. Budowanie własnych Promise()
+    const p = new Promise((resolve, reject) => {
+      // Promise może zostać rozwiązana lub odrzucona - nigdy obydwa przypadki
+      // rozwiązanie Promise: resolve(retVal)
+      // odrzucenie Promise: reject(retVal)
+      setTimeout(() => {
+        console.log("Promise resolved, but .then not fired..:(");
+        resolve("Promises are cool!");
+      }, 2000);
+      setTimeout(() => {
+        console.log("Promise rejected");
+        // we reject and return Error object - exception
+        reject("Promises can be rejected");
+      }, 1000);
+    });
+    // check
+    p.then((data) => console.log(data)).catch((e) => console.log(e));
+
+    // // 3. Chaining - łączenie kolejnych Promise
+    // // przykład - dekorowanie elementu
+    // function addBold(enl) {return new Promise()}
+    // function addItalic(el) {return new Promise()}
+    // function addUnderline(el) {return new Promise()}
+    // function addBackgroud(el,color) {return new Promise()}
+
+    // // inny przykład - działanie na dużych tablicach (Array.map, .find, .sort, filter) bez czekania na wynik
+
+    // 4. Wiele Promises(). Promise umożliwia czekanie na wiele innych Promise!
+    // przykład - jak dostaniesz info pogodowe, wypluj posta na fejsa
+    const fakeWeather = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("Sun is shiniiing");
+      }, 3000);
+    });
+
+    const fakeFB = new Promise((resolve, reject) => {
+      let fb = {
+        sendPost(p) {
+          console.log(`Tom on fejsik says: ${p}`);
+        },
+      };
+      setTimeout(() => {
+        resolve(fb);
+      }, 1000);
+    });
+
+    // wszystko na raz
+    // pliki.forEach((plik)=>{
+    //     tablicaObietnic.push(fetch(plik))
+    // })
+    // Promise.all(tablicaObietnic)
+    //     .then((resp)=>{
+    //         console.log("we're done")
+    //     })
+
+    // używamy metody statycznej .all obiektu Promise.
+    // .all zwraca... Promise;)
+
+    Promise.all([fakeWeather, fakeFB])
+      .then((responses) => {
+        // kolejność w tablicy jest taka sama, jak kolejność Promise w .all([])
+        console.log("Multpile Promises resolved", responses);
+        const [weather, fb] = responses;
+        fb.sendPost(weather);
+      })
+      .catch((errs) => { });
+
+    // także: .allSettled, .race, .resolve, .reject
+
+    // // 5. Czekamy na pierwszą z zakończonych Promise
+    // Promise.race([fakeWeather,fakeFB]).then(data=>console.log(data))
+
+    // // 6. Tworzenie defaultowo rozwiązanych lub odrzuconych Promises
+
+    const resolved = Promise.resolve("I'm optimist!");
+    const rejected = Promise.reject("I'm pesimist");
+
+    // function customFetch(url) {
+    //   if (!url) {
+    //     return Promise.reject('asd')
+    //   }
+    //   return new Promise((res, rej) => {
+    //     /// ladowanie
+
+    //   })
+    // }
+
+    // const onet = customFetch('https://onet.pl')
+    // onet.then().catch()
+      // 7. Brak w Promise: obietnica może być rozwiązana jedynie raz - więc nie sprawdza się w ciągłych procesach (TIP: Observables).
+
+      // złapiemy jedynie pierwszy click
+      
+      // let licznik = 0
+      // let pr = new Promise((resolve, reject)=>
+      // {
+      //     btn.addEventListener('click', ()=>{
+      //         resolve('btn kliknięty')
+      //     })
+      //     setTimeout(()=>{
+      //         reject('nie zdążył')
+      //         }
+      //         ,10000)
+      // })
+  </script>
+</body>
+
+</html>
