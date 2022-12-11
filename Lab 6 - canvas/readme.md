@@ -17,7 +17,7 @@ X, Y jest definiowane przez użytkownika (pola tekstowe lub np. suwaki - wstępn
 1. Każda kulka ma początkowo losowy rozmiar. Rozmiar kulki określa jej energię. Agarrr:)
 2. Gdy kulka łączy się z drugą (linia) energia płynie od kulki słabszej do silniejszej (kulki zmieniają rozmiar).   
 Siła kulki to X \* Prędkość + Y \* Masa.  
-X, Y konfigurowalne przez użytkownika.
+X, Y oraz prędkość przepływu energii konfigurowalne przez użytkownika.
 3. Kulki o rozmiarze mniejszym niż 1 umierają
 4. W miarę jak kulka rośnie jej prędkość zwalnia (gdy maleje - przyspiesza)
 
