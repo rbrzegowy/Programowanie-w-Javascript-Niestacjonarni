@@ -1,5 +1,4 @@
 ## Canvas, kanwasik. 
-#### Projekt dwutygodniowy  
 Coś takiego: [Canvas - w kulki a nie w piłkę...](https://wseii-my.sharepoint.com/:v:/g/personal/rbrzegowy_wsei_edu_pl/EYu-Qxy_FudBtBxuxjvob24BupW4B2IIEt0uv4vCqcFPsQ?e=pTBUf0)
 ### Wersja Nic się nie działo, naprawdę nic się... :
 1. Narysuj X kulek poruszających się w dowolnym kierunku z losową prędkością
